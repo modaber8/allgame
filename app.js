@@ -3,10 +3,10 @@
 // ==========================================
 const GAMES = [
   {
-    id: "FPS",
-    title: "gun shooter",
-    category: "violence",
-    emoji: "💀",
+    id: "snow",
+    title: "snow rider",
+    category: "fast paced",
+    emoji: "🎿",
     thumbnail: "", // Optional: put an image path like "images/2048.png"
     url: "https://www.onlinegames.io/snow-rider-multiplayer/" // Path to your embedded game folder or URL
   },
@@ -20,9 +20,9 @@ const GAMES = [
   },
   {
     id: "I forgot ngl",
-    title: "Motor ride game",
-    category: "action",
-    emoji: "⚡",
+    title: "cars drift",
+    category: "driving",
+    emoji: "🏎",
     thumbnail: "",
     url: "https://www.onlinegames.io/drift-king/"
   },
@@ -30,7 +30,7 @@ const GAMES = [
     id: "Slope 3d",
     title: "Slope 3d",
     category: "fast paced",
-    emoji: "🏎️",
+    emoji: "⚽",
     thumbnail: "",
     url: "https://slopegameaz.io/"
   },
