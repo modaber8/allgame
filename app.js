@@ -67,6 +67,14 @@
      newTab: true,
      thumbnail: "",
      url: "https://llama2.streamlit.app/"
+   },
+    {
+     id: "apple music",
+     title: " Apple Music",
+     category: "music",
+     newTab: true,
+     thumbnail: "",
+     url: "https://music.apple.com/us/new"
    }
 
 
