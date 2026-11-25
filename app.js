@@ -1,11 +1,20 @@
 // ==========================================
 // 1. YOUR GAME LIBRARY (Add new games here!)
 // ==========================================
-const GAMES = [
+
+];
+
+// ==========================================
+// 2. STATE & DOM ELEMENTS
+// ==========================================
+// ==========================================
+// ADD YOUR GAMES & SITES HERE
+// ==========================================
+const ITEMS = [
   {
     id: "snow",
     title: "snow rider",
-    category: "fast paced",
+    category: "games",
     emoji: "🎿",
     thumbnail: "", // Optional: put an image path like "images/2048.png"
     url: "https://www.onlinegames.io/snow-rider-multiplayer/" // Path to your embedded game folder or URL
@@ -13,7 +22,7 @@ const GAMES = [
   {
     id: "guns",
     title: "cool gun game",
-    category: "action",
+    category: "games",
     emoji: "⬡",
     thumbnail: "",
     url: "https://www.onlinegames.io/car-crash-test-abandoned-city/"
@@ -21,7 +30,7 @@ const GAMES = [
   {
     id: "I forgot ngl",
     title: "cars drift",
-    category: "driving",
+    category: "games",
     emoji: "🏎",
     thumbnail: "",
     url: "https://www.onlinegames.io/drift-king/"
@@ -29,7 +38,7 @@ const GAMES = [
   {
     id: "Slope 3d",
     title: "Slope 3d",
-    category: "fast paced",
+    category: "games",
     emoji: "⚽",
     thumbnail: "",
     url: "https://slopegameaz.io/"
@@ -42,15 +51,6 @@ const GAMES = [
     thumbnail: "",
     url: "4to.pics"
   }
-];
-
-// ==========================================
-// 2. STATE & DOM ELEMENTS
-// ==========================================
-// ==========================================
-// ADD YOUR GAMES & SITES HERE
-// ==========================================
-const ITEMS = [
   // Example:
   // {
   //   id: "2048",
