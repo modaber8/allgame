@@ -67,10 +67,26 @@
 
   // Paste your games/apps/anime items here!
   // Add `newTab: const ITEMS = [true,` inside any item that says "refused to connect"
-];
+
 
  // Paste your existing game/app/anime objects here!
 
+
+// ==========================================
+// 2. GRID, DOCK & PLAYER LOGIC
+// ==========================================
+// 1. YOUR ITEMS LIST (Paste your items here)
+// ==========================================
+
+  // Example AI item:
+  // {
+  //   id: "ai-tool-1",
+  //   title: "My AI Tool",
+  //   category: "ai",
+  //   thumbnail: "",
+  //   url: "https://..."
+  // }
+];
 
 // ==========================================
 // 2. GRID, DOCK & PLAYER LOGIC
@@ -192,7 +208,7 @@ function closePlayer() {
 searchInput.addEventListener("input", render);
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "/" && document.activeElement !== searchInput && document.activeElement !== aiInput) {
+  if (e.key === "/" && document.activeElement !== searchInput) {
     e.preventDefault();
     searchInput.focus();
   }
@@ -245,113 +261,6 @@ cloakBtn.addEventListener("click", () => {
   iframe.src = window.location.href;
   win.document.body.style.margin = "0";
   win.document.body.appendChild(iframe);
-});
-
-// ==========================================
-// 3. LOCAL BROWSER AI (WEBLLM - NO API KEY)
-// ==========================================
-const aiToggleBtn = document.getElementById("aiToggleBtn");
-const aiDrawer = document.getElementById("aiDrawer");
-const closeAiBtn = document.getElementById("closeAiBtn");
-const loadAiBtn = document.getElementById("loadAiBtn");
-const aiInitWrap = document.getElementById("aiInitWrap");
-const aiStatusBar = document.getElementById("aiStatusBar");
-const aiStatusDot = document.getElementById("aiStatusDot");
-const aiMessages = document.getElementById("aiMessages");
-const aiForm = document.getElementById("aiForm");
-const aiInput = document.getElementById("aiInput");
-const aiSendBtn = document.getElementById("aiSendBtn");
-
-let aiEngine = null;
-const chatHistory = [
-  { role: "system", content: "You are MODABER AI, a concise, helpful assistant built into the MODABERGAMES web dashboard." }
-];
-
-aiToggleBtn.addEventListener("click", () => {
-  const isHidden = aiDrawer.classList.toggle("hidden");
-  aiToggleBtn.classList.toggle("ai-open", !isHidden);
-});
-
-closeAiBtn.addEventListener("click", () => {
-  aiDrawer.classList.add("hidden");
-  aiToggleBtn.classList.remove("ai-open");
-});
-
-function appendMessage(text, sender) {
-  const div = document.createElement("div");
-  div.className = `ai-msg ${sender}`;
-  div.textContent = text;
-  aiMessages.appendChild(div);
-  aiMessages.scrollTop = aiMessages.scrollHeight;
-  return div;
-}
-
-loadAiBtn.addEventListener("click", async () => {
-  if (!navigator.gpu) {
-    aiStatusBar.textContent = "WebGPU not supported on this browser/device.";
-    return;
-  }
-
-  loadAiBtn.disabled = true;
-  loadAiBtn.textContent = "Connecting to AI Engine...";
-
-  try {
-    const webllm = await import("https://esm.run");
-    const selectedModel = "Qwen2.5-1.5B-Instruct-q4f16_1-MLC";
-    aiEngine = await webllm.CreateMLCEngine(selectedModel, {
-      initProgressCallback: (report) => {
-        aiStatusBar.textContent = report.text;
-      }
-    });
-
-    aiStatusDot.classList.add("ready");
-    aiStatusBar.textContent = "Model Ready (Running Locally via WebGPU)";
-    aiInitWrap.classList.add("hidden");
-    aiForm.classList.remove("hidden");
-    appendMessage("Model loaded! Ask me anything.", "bot");
-  } catch (err) {
-    aiStatusBar.textContent = "Error loading AI: " + err.message;
-    loadAiBtn.disabled = false;
-    loadAiBtn.textContent = "Retry Load Model";
-  }
-});
-
-aiForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const prompt = aiInput.value.trim();
-  if (!prompt || !aiEngine) return;
-
-  aiInput.value = "";
-  aiInput.disabled = true;
-  aiSendBtn.disabled = true;
-
-  appendMessage(prompt, "user");
-  chatHistory.push({ role: "user", content: prompt });
-
-  const botBubble = appendMessage("...", "bot");
-  let fullReply = "";
-
-  try {
-    const chunks = await aiEngine.chat.completions.create({
-      messages: chatHistory,
-      stream: true
-    });
-
-    for await (const chunk of chunks) {
-      const delta = chunk.choices?.delta?.content || "";
-      fullReply += delta;
-      botBubble.textContent = fullReply;
-      aiMessages.scrollTop = aiMessages.scrollHeight;
-    }
-
-    chatHistory.push({ role: "assistant", content: fullReply });
-  } catch (err) {
-    botBubble.textContent = "Error: " + err.message;
-  }
-
-  aiInput.disabled = false;
-  aiSendBtn.disabled = false;
-  aiInput.focus();
 });
 
 updateFavCount();
