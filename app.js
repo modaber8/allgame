@@ -54,6 +54,7 @@ const ITEMS = [
     id: "anime",
     title: "Anime",
     category: "anime",
+    newTab: true,
     emoji: "📺",
     thumbnail: "",
     url: "https://reanime.cz/home"
