@@ -49,7 +49,14 @@ const ITEMS = [
     emoji: "⚽",
     thumbnail: "",
     url: "https://www.onlinegames.io/"
-  }
+  },
+  {
+    id: "anime",
+    title: "Anime",
+    category: "anime",
+    emoji: "📺",
+    thumbnail: "",
+    url: "https://reanime.cz/home"
   // {
   //   id: "2048",
   //   title: "2048",
