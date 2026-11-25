@@ -36,7 +36,15 @@ body {
   opacity: 0.35; /* Controls translucency (0.10 = very faint, 0.35 = brighter) */
   pointer-events: none;
 }
-
+/* Subtle Lucid Dot Grid Layered Over Wallpaper */
+.bg-grid::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.28) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(circle at center, black 55%, transparent 95%);
+}
 
 /* Minimal Topbar */
 .topbar {
