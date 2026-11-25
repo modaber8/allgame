@@ -41,14 +41,6 @@ const ITEMS = [
     emoji: "⚽",
     thumbnail: "",
     url: "https://slopegameaz.io/"
-  },
-  {
-    id: "studies",
-    title: "rosin unblocked",
-    category: "proxy",
-    emoji: "🕹️",
-    thumbnail: "",
-    url: "4to.pics"
   }
   // Example:
   // {
