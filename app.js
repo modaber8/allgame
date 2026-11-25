@@ -20,7 +20,7 @@ const ITEMS = [
   },
   {
     id: "guns",
-    title: "cool gun game",
+    title: "car crash test",
     category: "games",
     emoji: "⬡",
     thumbnail: "",
@@ -41,8 +41,15 @@ const ITEMS = [
     emoji: "⚽",
     thumbnail: "",
     url: "https://slopegameaz.io/"
+  },
+  {
+    id: "Online games",
+    title: "online games",
+    category: "apps",
+    emoji: "⚽",
+    thumbnail: "",
+    url: "https://www.onlinegames.io/"
   }
-  // Example:
   // {
   //   id: "2048",
   //   title: "2048",
