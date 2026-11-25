@@ -33,7 +33,7 @@ body {
   background-size: cover;
   background-position: right center;
   background-repeat: no-repeat;
-  opacity: 0.22; /* Controls translucency (0.10 = very faint, 0.35 = brighter) */
+  opacity: 0.35; /* Controls translucency (0.10 = very faint, 0.35 = brighter) */
   pointer-events: none;
 }
 
