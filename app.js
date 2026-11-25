@@ -68,6 +68,17 @@ const ITEMS = [
   // }
 ];
 
+// ==========================================
+// 1. KEEP YOUR ITEMS ARRAY AT THE TOP
+// ==========================================
+
+  // Paste your games/apps/anime items here!
+  // Add `newTab: true,` inside any item that says "refused to connect"
+];
+
+// ==========================================
+// 2. CORE LOGIC (Replace everything below ITEMS with this)
+// ==========================================
 let currentCategory = "all";
 let showFavoritesOnly = false;
 let activeItem = null;
@@ -93,7 +104,6 @@ const reloadGameBtn = document.getElementById("reloadGameBtn");
 const fullscreenBtn = document.getElementById("fullscreenBtn");
 const closePlayerBtn = document.getElementById("closePlayerBtn");
 
-// Live Clock
 function updateClock() {
   const now = new Date();
   clockEl.textContent = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
@@ -164,6 +174,10 @@ function render() {
 }
 
 function openPlayer(item) {
+  if (item.newTab) {
+    window.open(item.url, "_blank");
+    return;
+  }
   activeItem = item;
   playerGameTitle.textContent = item.title;
   gameFrame.src = item.url;
