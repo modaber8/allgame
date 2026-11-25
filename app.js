@@ -75,8 +75,15 @@
      newTab: true,
      thumbnail: "",
      url: "https://music.apple.com/us/new"
+   },
+{
+     id: "prox",
+     title: " Ramdpm proxy",
+     category: "apps",
+     newTab: true,
+     thumbnail: "",
+     url: "https://cdn.jsdelivr.net/gh/lucideproxy/svg@latest/logo.svg"
    }
-
 
 
   // }{
