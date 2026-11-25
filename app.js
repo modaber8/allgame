@@ -47,228 +47,188 @@ const GAMES = [
 // ==========================================
 // 2. STATE & DOM ELEMENTS
 // ==========================================
+// ==========================================
+// ADD YOUR GAMES & SITES HERE
+// ==========================================
+const ITEMS = [
+  // Example:
+  // {
+  //   id: "2048",
+  //   title: "2048",
+  //   category: "games", // "games" or "apps"
+  //   thumbnail: "",     // optional image URL or path
+  //   url: "games/2048/index.html"
+  // }
+];
+
 let currentCategory = "all";
 let showFavoritesOnly = false;
-let currentGame = null;
-let favorites = JSON.parse(localStorage.getItem("nexus_favorites") || "[]");
+let activeItem = null;
+let favorites = JSON.parse(localStorage.getItem("modaber_favs") || "[]");
 
 const gamesGrid = document.getElementById("gamesGrid");
 const searchInput = document.getElementById("searchInput");
 const categoryBar = document.getElementById("categoryBar");
 const favoritesToggle = document.getElementById("favoritesToggle");
 const favCount = document.getElementById("favCount");
-const totalGamesText = document.getElementById("totalGamesText");
 const emptyState = document.getElementById("emptyState");
-const resetFiltersBtn = document.getElementById("resetFiltersBtn");
-const randomGameBtn = document.getElementById("randomGameBtn");
+const emptyText = document.getElementById("emptyText");
 const cloakBtn = document.getElementById("cloakBtn");
+const clockEl = document.getElementById("clock");
 
-// Player Modal Elements
+// Player Elements
 const playerOverlay = document.getElementById("playerOverlay");
 const gameFrame = document.getElementById("gameFrame");
 const iframeWrapper = document.getElementById("iframeWrapper");
 const playerGameTitle = document.getElementById("playerGameTitle");
-const playerGameCategory = document.getElementById("playerGameCategory");
 const playerFavBtn = document.getElementById("playerFavBtn");
 const reloadGameBtn = document.getElementById("reloadGameBtn");
 const fullscreenBtn = document.getElementById("fullscreenBtn");
 const closePlayerBtn = document.getElementById("closePlayerBtn");
 
-// ==========================================
-// 3. RENDERING & FILTERING
-// ==========================================
-function updateFavCounter() {
+// Live Clock
+function updateClock() {
+  const now = new Date();
+  clockEl.textContent = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+function updateFavCount() {
   favCount.textContent = favorites.length;
 }
 
-function toggleFavorite(gameId, event) {
-  if (event) event.stopPropagation();
+function toggleFavorite(id, e) {
+  if (e) e.stopPropagation();
+  favorites = favorites.includes(id)
+    ? favorites.filter((item) => item !== id)
+    : [...favorites, id];
 
-  if (favorites.includes(gameId)) {
-    favorites = favorites.filter((id) => id !== gameId);
-  } else {
-    favorites.push(gameId);
-  }
-
-  localStorage.setItem("nexus_favorites", JSON.stringify(favorites));
-  updateFavCounter();
-  renderGames();
-
-  if (currentGame && currentGame.id === gameId) {
-    updatePlayerFavButton();
+  localStorage.setItem("modaber_favs", JSON.stringify(favorites));
+  updateFavCount();
+  render();
+  if (activeItem && activeItem.id === id) {
+    playerFavBtn.style.color = favorites.includes(id) ? "#eab308" : "";
   }
 }
 
-function renderGames() {
+function render() {
   const query = searchInput.value.trim().toLowerCase();
 
-  const filtered = GAMES.filter((game) => {
-    const matchesSearch =
-      game.title.toLowerCase().includes(query) ||
-      game.category.toLowerCase().includes(query);
-    const matchesCategory =
-      currentCategory === "all" || game.category === currentCategory;
-    const matchesFav = !showFavoritesOnly || favorites.includes(game.id);
-
-    return matchesSearch && matchesCategory && matchesFav;
+  const filtered = ITEMS.filter((item) => {
+    const matchSearch = item.title.toLowerCase().includes(query);
+    const matchCat = currentCategory === "all" || item.category === currentCategory;
+    const matchFav = !showFavoritesOnly || favorites.includes(item.id);
+    return matchSearch && matchCat && matchFav;
   });
 
   gamesGrid.innerHTML = "";
-  totalGamesText.textContent = `${GAMES.length} Games Available`;
 
   if (filtered.length === 0) {
+    emptyText.textContent = ITEMS.length === 0 ? "No items in ITEMS[] yet." : "No matches found.";
     emptyState.classList.remove("hidden");
     return;
   }
 
   emptyState.classList.add("hidden");
 
-  filtered.forEach((game) => {
-    const isFav = favorites.includes(game.id);
+  filtered.forEach((item) => {
+    const isFav = favorites.includes(item.id);
     const card = document.createElement("div");
     card.className = "game-card";
-    card.onclick = () => openGame(game);
+    card.onclick = () => openPlayer(item);
 
-    const thumbContent = game.thumbnail
-      ? `<img src="${game.thumbnail}" alt="${game.title}" loading="lazy" />`
-      : `<span>${game.emoji || "🎮"}</span>`;
+    const thumbHTML = item.thumbnail
+      ? `<img src="${item.thumbnail}" alt="${item.title}" loading="lazy" />`
+      : `<span>${item.title.slice(0, 2).toUpperCase()}</span>`;
 
     card.innerHTML = `
-      <button class="card-fav-btn ${isFav ? "is-fav" : ""}" title="Toggle Favorite">
-        ${isFav ? "★" : "☆"}
-      </button>
-      <div class="card-thumb">${thumbContent}</div>
-      <div class="card-body">
-        <div class="card-title">${game.title}</div>
-        <div class="card-meta">
-          <span>${game.category}</span>
-          <span>PLAY →</span>
-        </div>
+      <button class="card-fav ${isFav ? "active" : ""}" title="Favorite">★</button>
+      <div class="card-thumb">${thumbHTML}</div>
+      <div class="card-footer">
+        <span class="card-title">${item.title}</span>
+        <span class="card-tag">${item.category}</span>
       </div>
     `;
 
-    card.querySelector(".card-fav-btn").onclick = (e) =>
-      toggleFavorite(game.id, e);
-
+    card.querySelector(".card-fav").onclick = (e) => toggleFavorite(item.id, e);
     gamesGrid.appendChild(card);
   });
 }
 
-// ==========================================
-// 4. INTEGRATED GAME PLAYER
-// ==========================================
-function openGame(game) {
-  currentGame = game;
-  playerGameTitle.textContent = game.title;
-  playerGameCategory.textContent = game.category;
-  gameFrame.src = game.url;
-  updatePlayerFavButton();
+function openPlayer(item) {
+  activeItem = item;
+  playerGameTitle.textContent = item.title;
+  gameFrame.src = item.url;
+  playerFavBtn.style.color = favorites.includes(item.id) ? "#eab308" : "";
   playerOverlay.classList.remove("hidden");
   document.body.style.overflow = "hidden";
 }
 
-function closeGame() {
+function closePlayer() {
   playerOverlay.classList.add("hidden");
-  gameFrame.src = ""; // Stop game audio/processes
-  currentGame = null;
+  gameFrame.src = "";
+  activeItem = null;
   document.body.style.overflow = "";
 }
 
-function updatePlayerFavButton() {
-  if (!currentGame) return;
-  const isFav = favorites.includes(currentGame.id);
-  playerFavBtn.textContent = isFav ? "★ Favorited" : "☆ Favorite";
-}
+searchInput.addEventListener("input", render);
 
-// ==========================================
-// 5. EVENT LISTENERS & EXTRAS
-// ==========================================
-searchInput.addEventListener("input", renderGames);
-
-// Press "/" anywhere to focus search
 document.addEventListener("keydown", (e) => {
   if (e.key === "/" && document.activeElement !== searchInput) {
     e.preventDefault();
     searchInput.focus();
   }
   if (e.key === "Escape" && !playerOverlay.classList.contains("hidden")) {
-    closeGame();
+    closePlayer();
   }
 });
 
-// Category filter buttons
 categoryBar.addEventListener("click", (e) => {
-  if (!e.target.classList.contains("filter-pill")) return;
-  document
-    .querySelectorAll(".filter-pill")
-    .forEach((btn) => btn.classList.remove("active"));
-  e.target.classList.add("active");
-  currentCategory = e.target.dataset.category;
-  renderGames();
+  const btn = e.target.closest("[data-category]");
+  if (!btn) return;
+  document.querySelectorAll("[data-category]").forEach((el) => el.classList.remove("active"));
+  btn.classList.add("active");
+  currentCategory = btn.dataset.category;
+  render();
 });
 
-// Favorites filter toggle
 favoritesToggle.addEventListener("click", () => {
   showFavoritesOnly = !showFavoritesOnly;
-  favoritesToggle.classList.toggle("active-fav", showFavoritesOnly);
-  renderGames();
+  favoritesToggle.classList.toggle("fav-active", showFavoritesOnly);
+  render();
 });
 
-resetFiltersBtn.addEventListener("click", () => {
-  searchInput.value = "";
-  currentCategory = "all";
-  showFavoritesOnly = false;
-  favoritesToggle.classList.remove("active-fav");
-  document
-    .querySelectorAll(".filter-pill")
-    .forEach((btn) => btn.classList.toggle("active", btn.dataset.category === "all"));
-  renderGames();
-});
-
-// Random Game Launcher
-randomGameBtn.addEventListener("click", () => {
-  if (GAMES.length === 0) return;
-  const random = GAMES[Math.floor(Math.random() * GAMES.length)];
-  openGame(random);
-});
-
-// Player Controls
 playerFavBtn.addEventListener("click", () => {
-  if (currentGame) toggleFavorite(currentGame.id);
+  if (activeItem) toggleFavorite(activeItem.id);
 });
 
 reloadGameBtn.addEventListener("click", () => {
-  if (currentGame) gameFrame.src = currentGame.url;
+  if (activeItem) gameFrame.src = activeItem.url;
 });
 
 fullscreenBtn.addEventListener("click", () => {
-  if (iframeWrapper.requestFullscreen) {
-    iframeWrapper.requestFullscreen();
-  }
+  if (iframeWrapper.requestFullscreen) iframeWrapper.requestFullscreen();
 });
 
-closePlayerBtn.addEventListener("click", closeGame);
+closePlayerBtn.addEventListener("click", closePlayer);
 
-// About:Blank Tab Cloaker
 cloakBtn.addEventListener("click", () => {
   const win = window.open("about:blank", "_blank");
-  if (!win) {
-    alert("Pop-up blocked! Allow pop-ups for this site to use Tab Cloak.");
-    return;
-  }
-  const doc = win.document;
-  const iframe = doc.createElement("iframe");
-  doc.title = "Google Drive";
-  iframe.style.position = "fixed";
-  iframe.style.inset = "0";
-  iframe.style.width = "100%";
-  iframe.style.height = "100%";
-  iframe.style.border = "none";
+  if (!win) return;
+  const iframe = win.document.createElement("iframe");
+  win.document.title = "Google Drive";
+  Object.assign(iframe.style, {
+    position: "fixed",
+    inset: "0",
+    width: "100%",
+    height: "100%",
+    border: "none"
+  });
   iframe.src = window.location.href;
-  doc.body.style.margin = "0";
-  doc.body.appendChild(iframe);
+  win.document.body.style.margin = "0";
+  win.document.body.appendChild(iframe);
 });
 
-// Initialize
-updateFavCounter();
-renderGames();
+updateFavCount();
+render();
