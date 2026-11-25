@@ -24,6 +24,18 @@ body {
   display: flex;
   flex-direction: column;
 }
+/* Translucent Custom Wallpaper Layer */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url("bg.png");
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+  opacity: 0.22; /* Controls translucency (0.10 = very faint, 0.35 = brighter) */
+  pointer-events: none;
+}
 
 /* Subtle Lucid Dot/Grid Mesh */
 .bg-grid {
