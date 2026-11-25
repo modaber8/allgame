@@ -73,12 +73,13 @@ const ITEMS = [
 // ==========================================
 
   // Paste your games/apps/anime items here!
-  // Add `newTab: true,` inside any item that says "refused to connect"
+  // Add `newTab: const ITEMS = [true,` inside any item that says "refused to connect"
 ];
 
 // ==========================================
 // 2. CORE LOGIC (Replace everything below ITEMS with this)
 // ==========================================
+const ITEMS = [
 let currentCategory = "all";
 let showFavoritesOnly = false;
 let activeItem = null;
