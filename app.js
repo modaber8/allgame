@@ -66,7 +66,7 @@ const ITEMS = [
   //   thumbnail: "",     // optional image URL or path
   //   url: "games/2048/index.html"
   // }
-];
+
 
 // ==========================================
 // 1. KEEP YOUR ITEMS ARRAY AT THE TOP
@@ -79,7 +79,7 @@ const ITEMS = [
 // ==========================================
 // 2. CORE LOGIC (Replace everything below ITEMS with this)
 // ==========================================
-const ITEMS = [
+
 let currentCategory = "all";
 let showFavoritesOnly = false;
 let activeItem = null;
