@@ -1,4 +1,8 @@
-const ITEMS = [
+// ==========================================
+// 1. YOUR ITEMS LIST (Paste your items here)
+// ==========================================
+
+ const ITEMS = [
   {
     id: "snow",
     title: "snow rider",
@@ -65,13 +69,7 @@ const ITEMS = [
   // Add `newTab: const ITEMS = [true,` inside any item that says "refused to connect"
 ];
 
-import * as webllm from "https://esm.run";
-
-// ==========================================
-// 1. YOUR ITEMS LIST (Paste your items here)
-// ==========================================
-
-  // Paste your existing game/app/anime objects here!
+ // Paste your existing game/app/anime objects here!
 
 
 // ==========================================
@@ -295,9 +293,10 @@ loadAiBtn.addEventListener("click", async () => {
   }
 
   loadAiBtn.disabled = true;
-  loadAiBtn.textContent = "Downloading Model...";
+  loadAiBtn.textContent = "Connecting to AI Engine...";
 
   try {
+    const webllm = await import("https://esm.run");
     const selectedModel = "Qwen2.5-1.5B-Instruct-q4f16_1-MLC";
     aiEngine = await webllm.CreateMLCEngine(selectedModel, {
       initProgressCallback: (report) => {
@@ -311,7 +310,7 @@ loadAiBtn.addEventListener("click", async () => {
     aiForm.classList.remove("hidden");
     appendMessage("Model loaded! Ask me anything.", "bot");
   } catch (err) {
-    aiStatusBar.textContent = "Error loading model: " + err.message;
+    aiStatusBar.textContent = "Error loading AI: " + err.message;
     loadAiBtn.disabled = false;
     loadAiBtn.textContent = "Retry Load Model";
   }
@@ -339,7 +338,7 @@ aiForm.addEventListener("submit", async (e) => {
     });
 
     for await (const chunk of chunks) {
-      const delta = chunk.choices[0]?.delta?.content || "";
+      const delta = chunk.choices?.delta?.content || "";
       fullReply += delta;
       botBubble.textContent = fullReply;
       aiMessages.scrollTop = aiMessages.scrollHeight;
