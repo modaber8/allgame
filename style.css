@@ -375,21 +375,56 @@ body {
   display: none !important;
 }
 /* Full-Screen AI Workspace */
+/* Full-Screen AI Workspace */
 .ai-drawer {
   position: fixed;
-  top: 56px; /* Sits cleanly right below the top bar */
+  top: 56px;
   left: 0;
   right: 0;
   bottom: 0;
   width: 100%;
-  max-width: 100%;
   background: rgba(8, 9, 12, 0.94);
   backdrop-filter: blur(24px);
   border-top: 1px solid var(--border);
-  z-index: 45; /* Keeps your bottom dock clickable on top! */
+  z-index: 45;
   display: flex;
   flex-direction: column;
-  padding-bottom: 5.5rem; /* Leaves room for the floating bottom dock */
+  padding-bottom: 5.5rem;
+}
+
+.ai-header {
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.ai-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ai-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+.ai-status-bar {
+  padding: 0.45rem 1.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  background: rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid var(--border);
 }
 
 .ai-messages {
@@ -404,14 +439,63 @@ body {
   gap: 0.85rem;
 }
 
+.ai-msg {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  max-width: 85%;
+  word-wrap: break-word;
+}
+
+.ai-msg.bot {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  align-self: flex-start;
+  color: var(--text);
+}
+
+.ai-msg.user {
+  background: var(--text);
+  color: var(--bg);
+  align-self: flex-end;
+  font-weight: 500;
+}
+
 .ai-input-bar {
   width: 100%;
   max-width: 820px;
   margin: 0 auto;
   display: flex;
   gap: 0.6rem;
-  padding: 0.85rem 1.25rem;
+  padding: 0.75rem 1rem;
   border: 1px solid var(--border-active);
   border-radius: 14px;
   background: rgba(18, 20, 26, 0.9);
+}
+
+.ai-input-bar input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.ai-input-bar button {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  border: none;
+  background: var(--text);
+  color: var(--bg);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dock-item.ai-open {
+  color: var(--bg);
+  background: var(--text);
 }
