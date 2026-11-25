@@ -88,7 +88,7 @@
      title: "Another Ramdpm proxy",
      category: "apps",
      thumbnail: "",
-     url: "https://cdn.jsdelivr.net/gh/lucideproxy/svg@latest/logo.svg"
+     url: "https://storage.googleapis.com/gclassroom/study.html"
    }
 
  
