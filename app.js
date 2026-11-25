@@ -94,6 +94,7 @@
      id: "animeprox",
      title: "Anime Proxy",
      category: "anime",
+     newTab: true,
      thumbnail: "",
      url: "https://azino777-nvsa.sbs/#goog_rewarded"
    }       
