@@ -55,6 +55,7 @@
   {
      id: "ai-tool-1",
      title: "Math AI tool",
+     newTab: true,
      category: "ai",
      thumbnail: "",
      url: "https://aimathsolver.co/"
@@ -63,6 +64,7 @@
      id: "ai-tool-1",
      title: " AI tool",
      category: "ai",
+     newTab: true,
      thumbnail: "",
      url: "https://llama2.streamlit.app/"
    }
