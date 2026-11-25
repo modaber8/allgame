@@ -51,7 +51,24 @@
     emoji: "📺",
     thumbnail: "",
     url: "https://reanime.cz/home"
-  }
+  },  
+  {
+     id: "ai-tool-1",
+     title: "Math AI tool",
+     category: "ai",
+     thumbnail: "",
+     url: "https://aimathsolver.co/"
+   },  
+  {
+     id: "ai-tool-1",
+     title: " AI tool",
+     category: "ai",
+     thumbnail: "",
+     url: "https://llama2.streamlit.app/"
+   }
+
+
+
   // }{
   //   id: "2048",
   //   title: "2048",
@@ -80,7 +97,9 @@
 
   // Example AI item:
   // {
-  //   id: "ai-tool-1",
+  //   id: "ai-tool-1",     id: "ai-tool-1",
+
+
   //   title: "My AI Tool",
   //   category: "ai",
   //   thumbnail: "",
