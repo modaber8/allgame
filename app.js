@@ -89,10 +89,15 @@
      category: "apps",
      thumbnail: "",
      url: "https://storage.googleapis.com/gclassroom/study.html"
-   }
-
- 
-
+   },
+   {
+     id: "animeprox",
+     title: "Anime Proxy",
+     category: "anime",
+     thumbnail: "",
+     url: "https://azino777-nvsa.sbs/#goog_rewarded"
+     { 
+          
 
 
   // }{
