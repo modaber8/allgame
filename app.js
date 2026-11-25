@@ -8,7 +8,7 @@ const GAMES = [
     category: "violence",
     emoji: "💀",
     thumbnail: "", // Optional: put an image path like "images/2048.png"
-    url: "https://www.crazygames.com/game/hazmob-fps-online-shooter" // Path to your embedded game folder or URL
+    url: "https://www.onlinegames.io/snow-rider-multiplayer/" // Path to your embedded game folder or URL
   },
   {
     id: "guns",
@@ -16,7 +16,7 @@ const GAMES = [
     category: "action",
     emoji: "⬡",
     thumbnail: "",
-    url: "https://www.crazygames.com/game/kour-io"
+    url: "https://www.onlinegames.io/car-crash-test-abandoned-city/"
   },
   {
     id: "I forgot ngl",
@@ -24,7 +24,7 @@ const GAMES = [
     category: "action",
     emoji: "⚡",
     thumbnail: "",
-    url: "https://slopegameaz.io/moto-x3m-2"
+    url: "https://www.onlinegames.io/drift-king/"
   },
   {
     id: "Slope 3d",
@@ -35,12 +35,12 @@ const GAMES = [
     url: "https://slopegameaz.io/"
   },
   {
-    id: "retro-arcade",
-    title: "Rocket goal",
-    category: "fast paced",
+    id: "studies",
+    title: "rosin unblocked",
+    category: "proxy",
     emoji: "🕹️",
     thumbnail: "",
-    url: "https://www.crazygames.com/game/rocketgoal-io"
+    url: "4to.pics"
   }
 ];
 
