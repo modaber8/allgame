@@ -3,44 +3,44 @@
 // ==========================================
 const GAMES = [
   {
-    id: "2048",
-    title: "2048",
-    category: "puzzle",
-    emoji: "🔢",
+    id: "FPS",
+    title: "gun shooter",
+    category: "violence",
+    emoji: "💀",
     thumbnail: "", // Optional: put an image path like "images/2048.png"
-    url: "games/2048/index.html" // Path to your embedded game folder or URL
+    url: "https://www.crazygames.com/game/hazmob-fps-online-shooter" // Path to your embedded game folder or URL
   },
   {
-    id: "hextris",
-    title: "Hextris",
-    category: "arcade",
+    id: "guns",
+    title: "cool gun game",
+    category: "action",
     emoji: "⬡",
     thumbnail: "",
-    url: "games/hextris/index.html"
+    url: "https://www.crazygames.com/game/kour-io"
   },
   {
-    id: "slope-runner",
-    title: "Neon Slope",
+    id: "I forgot ngl",
+    title: "Motor ride game",
     category: "action",
     emoji: "⚡",
     thumbnail: "",
-    url: "games/slope/index.html"
+    url: "https://slopegameaz.io/moto-x3m-2"
   },
   {
-    id: "drift-hunters",
-    title: "Drift Track",
-    category: "racing",
+    id: "Slope 3d",
+    title: "Slope 3d",
+    category: "fast paced",
     emoji: "🏎️",
     thumbnail: "",
-    url: "games/drift/index.html"
+    url: "https://slopegameaz.io/"
   },
   {
     id: "retro-arcade",
-    title: "Retro Emulator",
-    category: "retro",
+    title: "Rocket goal",
+    category: "fast paced",
     emoji: "🕹️",
     thumbnail: "",
-    url: "games/retro/index.html"
+    url: "https://www.crazygames.com/game/rocketgoal-io"
   }
 ];
 
