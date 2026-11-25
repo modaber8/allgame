@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXUS ARCADE // Browser Game Hub</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://googleapis.com" />
+  <link rel="preconnect" href="https://gstatic.com" crossorigin />
+  <link href="https://googleapis.com/css2?family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Animated Background Glow -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-left">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">NEXUS<span class="accent">PLAY</span></span>
+      </div>
+    </div>
+
+    <div class="nav-center">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search games, genres, tags..." autocomplete="off" />
+        <span class="shortcut-badge">/</span>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button id="favoritesToggle" class="nav-btn" title="View Saved Favorites">
+        ★ Favorites (<span id="favCount">0</span>)
+      </button>
+      <button id="cloakBtn" class="nav-btn accent-btn" title="Open site in an about:blank tab">
+        🕵️ Cloak Tab
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Hero Banner -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="badge">INSTANT PLAY • ZERO DOWNLOADS</span>
+        <h1>Level Up Your Browser.</h1>
+        <p>Fast, lightweight HTML5, WebGL, and retro arcade games ready to play straight in your tab.</p>
+        <div class="hero-actions">
+          <button id="randomGameBtn" class="primary-btn">🎲 Play Random Game</button>
+          <span class="game-counter" id="totalGamesText">Loading library...</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Filter Pills -->
+    <section class="filter-bar" id="categoryBar">
+      <button class="filter-pill active" data-category="all">All Games</button>
+      <button class="filter-pill" data-category="action">Action</button>
+      <button class="filter-pill" data-category="arcade">Arcade</button>
+      <button class="filter-pill" data-category="puzzle">Puzzle</button>
+      <button class="filter-pill" data-category="racing">Racing</button>
+      <button class="filter-pill" data-category="retro">Retro</button>
+    </section>
+
+    <!-- Game Grid -->
+    <section class="games-grid" id="gamesGrid">
+      <!-- Game cards are injected automatically by app.js -->
+    </section>
+
+    <!-- Empty Search State -->
+    <div class="empty-state hidden" id="emptyState">
+      <h2>No games matched your search</h2>
+      <p>Try clearing your filters or searching for another title.</p>
+      <button id="resetFiltersBtn" class="nav-btn">Reset Filters</button>
+    </div>
+  </main>
+
+  <!-- Integrated Theater-Mode Game Player Modal -->
+  <div class="player-overlay hidden" id="playerOverlay">
+    <div class="player-container">
+      <div class="player-header">
+        <div class="player-title-group">
+          <span class="live-dot"></span>
+          <h3 id="playerGameTitle">Game Title</h3>
+          <span class="player-tag" id="playerGameCategory">Category</span>
+        </div>
+        <div class="player-controls">
+          <button id="playerFavBtn" class="control-btn" title="Favorite this game">☆ Favorite</button>
+          <button id="reloadGameBtn" class="control-btn" title="Restart Game">↻ Reload</button>
+          <button id="fullscreenBtn" class="control-btn primary-control" title="Fullscreen">⛶ Fullscreen</button>
+          <button id="closePlayerBtn" class="control-btn close-btn" title="Close Player">✕ Close</button>
+        </div>
+      </div>
+      <div class="iframe-wrapper" id="iframeWrapper">
+        <iframe id="gameFrame" src="" allowfullscreen allow="autoplay; fullscreen; gamepad"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Built for instant browser gaming • Add your own games inside <code>app.js</code></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
